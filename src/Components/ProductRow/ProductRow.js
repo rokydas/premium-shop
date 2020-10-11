@@ -6,11 +6,17 @@ const ProductRow = ({ product }) => {
     const { id, name, price } = product;
     const quantity = 0;
 
-    const [ cashMemoInfo, setCashMemoInfo ] = useContext(CashContext);
+    const {cash} = useContext(CashContext);
+    const [cashMemoInfo, setCashMemoInfo] = cash;
 
-    const handleOnBlur = (e) => {
-        const newCashMemoInfo = {...cashMemoInfo};
-        newCashMemoInfo[e.target.name] = Number(e.target.value);
+    const handleOnBlur = (event) => {
+        const newCashMemoInfo = cashMemoInfo;
+        for (let i = 0; i < newCashMemoInfo.length; i++) {
+            const element = newCashMemoInfo[i];
+            if(element.id === id) {
+                element.quantity = Number(event.target.value);
+            }
+        }
         setCashMemoInfo(newCashMemoInfo);
     } 
 
@@ -21,8 +27,8 @@ const ProductRow = ({ product }) => {
     return (
         <tr>
             <td>{name}</td>
-            <td><input onChange={handleOnChange} className="form-control" type="number" name='price' value={price} /></td>
-            <td><input onBlur={handleOnBlur} className="form-control" type="number" name={`product${id}Quantity`} defaultValue={quantity} /></td>
+            <td><input onChange={handleOnChange} className="form-control" type="number" value={price} /></td>
+            <td><input onBlur={handleOnBlur} className="form-control" type="number" defaultValue={quantity} /></td>
         </tr>
     );
 };

@@ -9,18 +9,21 @@ const Home = () => {
 
     const history = useHistory();
 
-    const [ cashMemoInfo, setCashMemoInfo ] = useContext(CashContext);
+    const {client} = useContext(CashContext);
+    const [clientInfo, setClientInfo] = client;
+    
 
     const handleOnBlur = (e) => {
-        const newCashMemoInfo = {...cashMemoInfo};
-        newCashMemoInfo[e.target.name] = e.target.value;
-        setCashMemoInfo(newCashMemoInfo);
+        const newClientInfo = {...clientInfo};
+        newClientInfo[e.target.name] = e.target.value;
+        setClientInfo(newClientInfo);
+        console.log(clientInfo);
     }   
 
     const handleSubmit = () => {
-        const newCashMemoInfo = {...cashMemoInfo}
-        newCashMemoInfo.isCash = true;
-        setCashMemoInfo(newCashMemoInfo);
+        const newClientInfo = {...clientInfo};
+        newClientInfo.isCash = true;
+        setClientInfo(newClientInfo);
         history.replace('/cash-memo');
     }
 

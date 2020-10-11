@@ -4,13 +4,14 @@ import { CashContext } from '../../App';
 
 const PrivateRoute = ({ children, ...rest }) => {
 
-  const [cashMemoInfo, setCashMemoInfo] = useContext(CashContext);
+  const {client} = useContext(CashContext);
+  const [clientInfo] = client;
 
     return (
       <Route
         {...rest}
         render={({ location }) =>
-        cashMemoInfo.isCash ? (
+        clientInfo.isCash ? (
             children
           ) : (
             <Redirect
